@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VocabularyController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\VocabularyController as ApiVocabularyController;
 use Illuminate\Support\Facades\Route;
 
+// Web routes
 Route::get('/', function () {
     return view('welcome');
 });
@@ -17,11 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    // Thêm routes cho quản lý từ vựng
+    // Web vocabulary routes
     Route::resource('vocabularies', VocabularyController::class);
 });
 
-Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('register');
-Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+
 
 require __DIR__.'/auth.php';
